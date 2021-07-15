@@ -7,7 +7,7 @@
       id="header"
       class="d-flex w-100 justify-content-center align-items-center"
     >
-      <!-- header component -->
+      <Navbar />
     </div>
     <div
       id="body"
@@ -20,7 +20,10 @@
 
 <script>
 import "../assets/style.sass";
-export default {};
+import Navbar from "../components/Navbar.vue";
+export default {
+  components: { Navbar }
+};
 </script>
 
 <style></style>
