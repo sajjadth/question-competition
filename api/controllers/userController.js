@@ -34,29 +34,33 @@ const register = async (req, res) => {
 
 const signin = (req, res) => {
   const user = User.findOne({ username: req.body.username });
-  if (!user)
-    res.json({ success: false, message: "username or password is incorrect!" });
 
   user.then(result => {
-    const passwordChehck = bcrypt.compareSync(
-      req.body.password,
-      result.password
-    );
-    if (!passwordChehck) {
+    if (!result) {
       res.json({
         success: false,
         message: "username or password is incorrect!"
       });
     } else {
-      const token = jwt.sign(
-        { username: result.username, _id: result._id },
-        process.env.TOKEN_SECRET,
-        { expiresIn: "3h" }
+      const passwordChehck = bcrypt.compareSync(
+        req.body.password,
+        result.password
       );
-      res.json({ success: true, token: token });
+      if (!passwordChehck) {
+        res.json({
+          success: false,
+          message: "username or password is incorrect!"
+        });
+      } else {
+        const token = jwt.sign(
+          { username: result.username, _id: result._id },
+          process.env.TOKEN_SECRET,
+          { expiresIn: "3h" }
+        );
+        res.json({ success: true, token: token });
+      }
     }
   });
 };
 
-
-module.exports = { register, signin};
+module.exports = { register, signin };
