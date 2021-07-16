@@ -2,7 +2,7 @@
   <div>
     <vs-navbar paddingScroll fixed center-collapsed id="navbar">
       <template #left>
-        <h3 @click="route = '/'">
+        <h3>
           <nuxt-link to="/" class="link-dark">QC</nuxt-link>
         </h3>
       </template>
@@ -36,14 +36,12 @@
           transparent
           to="/login"
           :active="route === '/login'"
-          @click="route = '/login'"
           >Login</vs-button
         >
         <vs-button
-          success
-          flat
+          dark
+          transparent
           :active="route === '/register'"
-          @click="route = '/register'"
           to="/register"
           >register now</vs-button
         >
@@ -59,6 +57,11 @@ export default {
       // active: this.$route.path,
       route: this.$route.path
     };
+  },
+  watch: {
+    $route(to, from) {
+            this.route = to.path
+    }
   }
 };
 </script>

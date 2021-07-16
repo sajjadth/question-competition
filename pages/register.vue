@@ -10,12 +10,14 @@
           block
           class="input-m"
           v-model="firstName"
+          required
         ></vs-input>
         <vs-input
           label-placeholder="last name"
           block
           class="input-m"
           v-model="lastName"
+          required
         ></vs-input>
       </div>
       <div
@@ -26,6 +28,7 @@
           block
           class="input-m"
           v-model="username"
+          required
         ></vs-input>
       </div>
       <div
@@ -37,6 +40,7 @@
           class="input-m"
           v-model="email"
           type="email"
+          required
         ></vs-input>
       </div>
       <div
@@ -50,6 +54,7 @@
           id="password"
           :progress="getProgress"
           type="password"
+          required
         >
           <template v-if="getProgress === 100" #message-success
             >Secure password</template
@@ -61,6 +66,7 @@
           class="input-m"
           type="password"
           v-model="passwordConfirm"
+          required
         >
           <template v-if="passwordConfirm === ''" #message></template>
           <template v-else-if="!passwordMatch" #message-danger
@@ -85,9 +91,30 @@
       <div
         class="d-flex flex-row justify-content-center align-items-center w-100"
       >
-        <vs-button type="submit" success flat block>submit</vs-button>
+        <vs-button
+          type="submit"
+          flat
+          color="rgb(84, 160, 255)"
+          block
+          ref="button"
+          :loading="isLoading"
+          >submit</vs-button
+        >
       </div>
     </form>
+    <div
+      class="d-flex flex-row justify-content-center align-items-center w-100"
+    >
+      <vs-button
+        class="mt-2 w-100"
+        to="/login"
+        transparent
+        color="rgb(84, 160, 255)"
+        block
+      >
+        Have an account?
+      </vs-button>
+    </div>
     <!-- Terms of Service -->
     <vs-dialog scroll overflow-hidden blur width="600px" v-model="terms">
       <template #header>
@@ -164,7 +191,8 @@ export default {
       email: "",
       password: "",
       passwordConfirm: "",
-      error: ""
+      error: "",
+      isLoading: false
     };
   },
   computed: {
@@ -195,6 +223,7 @@ export default {
   methods: {
     submit() {
       if (this.passwordMatch) {
+        this.isLoading = true;
         const user = {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -207,11 +236,27 @@ export default {
           url: "http://localhost:5000/api/v1/users/register",
           data: user
         }).then(result => {
+          this.isLoading = false;
           if (result.status === 200) {
             if (result.data.success === true) {
-              console.log("ok");
+              this.openNotification(
+                "top-right",
+                "success",
+                "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' style='fill: #ffffff;transform: ;msFilter:;'><path d='M10 15.586L6.707 12.293 5.293 13.707 10 18.414 19.707 8.707 18.293 7.293z'></path></svg>",
+                6000,
+                "done",
+                "you successfully registered now you can use your username and password to login"
+              );
+              this.$router.push("/login");
             } else {
-              console.log("not ok");
+              this.openNotification(
+                "top-right",
+                "danger",
+                "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' style='fill: #ffffff;transform: ;msFilter:;'><path d='M11.001 10H13.001V15H11.001zM11 16H13V18H11z'></path><path d='M13.768,4.2C13.42,3.545,12.742,3.138,12,3.138s-1.42,0.407-1.768,1.063L2.894,18.064 c-0.331,0.626-0.311,1.361,0.054,1.968C3.313,20.638,3.953,21,4.661,21h14.678c0.708,0,1.349-0.362,1.714-0.968 c0.364-0.606,0.385-1.342,0.054-1.968L13.768,4.2z M4.661,19L12,5.137L19.344,19H4.661z'></path></svg>",
+                8000,
+                "Error",
+                result.data.message
+              );
             }
           } else {
             console.log("error in register user");
@@ -221,6 +266,17 @@ export default {
         console.log("err");
         this.error = "password not match";
       }
+    },
+    openNotification(position = null, color, icon, time, title, text) {
+      const noti = this.$vs.notification({
+        sticky: true,
+        color,
+        icon,
+        duration: time,
+        position,
+        title: title,
+        text: text
+      });
     }
   }
 };

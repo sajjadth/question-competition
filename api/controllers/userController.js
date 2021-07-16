@@ -32,7 +32,7 @@ const register = async (req, res) => {
     });
 };
 
-const signin = (req, res) => {
+const login = (req, res) => {
   const user = User.findOne({ username: req.body.username });
 
   user.then(result => {
@@ -63,4 +63,4 @@ const signin = (req, res) => {
   });
 };
 
-module.exports = { register, signin };
+module.exports = { register, login };
