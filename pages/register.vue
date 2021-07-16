@@ -1,20 +1,18 @@
-<template
-  ><div>
+<template>
+  <div>
     <h3 class="text-center">register</h3>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" autocomplete="off">
       <div
         class="d-flex flex-row justify-content-center align-items-center w-100 m-auto"
       >
         <vs-input
           label-placeholder="first name"
-          dark
           block
           class="input-m"
           v-model="firstName"
         ></vs-input>
         <vs-input
           label-placeholder="last name"
-          dark
           block
           class="input-m"
           v-model="lastName"
@@ -25,7 +23,6 @@
       >
         <vs-input
           label-placeholder="username"
-          dark
           block
           class="input-m"
           v-model="username"
@@ -36,10 +33,10 @@
       >
         <vs-input
           label-placeholder="email"
-          dark
           block
           class="input-m"
           v-model="email"
+          type="email"
         ></vs-input>
       </div>
       <div
@@ -47,37 +44,48 @@
       >
         <vs-input
           label-placeholder="password"
-          dark
           block
           class="input-m"
           v-model="password"
-        ></vs-input>
+          id="password"
+          :progress="getProgress"
+          type="password"
+        >
+          <template v-if="getProgress === 100" #message-success
+            >Secure password</template
+          >
+        </vs-input>
         <vs-input
           label-placeholder="confirm yout password"
-          dark
           block
           class="input-m"
+          type="password"
           v-model="passwordConfirm"
-        ></vs-input>
+        >
+          <template v-if="passwordConfirm === ''" #message></template>
+          <template v-else-if="!passwordMatch" #message-danger
+            >Password does not match</template
+          >
+          <template v-else #message-success>Password match</template>
+        </vs-input>
+      </div>
+      <div class="d-flex flex-row justify-content-center align-items-center">
+        <p class="register-footer text-center">
+          By clicking submit, you are indicating that you have read and<br />
+          acknowledge the
+          <a class="link-primary pointer" @click="terms = true"
+            >Terms of Service</a
+          >
+          and
+          <a class="link-primary pointer" @click="privacy = true"
+            >Privacy Notice</a
+          >.
+        </p>
       </div>
       <div
         class="d-flex flex-row justify-content-center align-items-center w-100"
-      ></div>
-      <p class="register-footer text-center">
-        By clicking submit, you are indicating that you have read and<br />
-        acknowledge the
-        <a class="link-primary pointer" @click="terms = true"
-          >Terms of Service</a
-        >
-        and
-        <a class="link-primary pointer" @click="privacy = true"
-          >Privacy Notice</a
-        >.
-      </p>
-      <div
-        class="d-flex flex-row justify-content-center align-items-center w-100"
       >
-        <vs-button success flat block>submit</vs-button>
+        <vs-button type="submit" success flat block>submit</vs-button>
       </div>
     </form>
     <!-- Terms of Service -->
@@ -138,18 +146,82 @@
 </template>
 
 <script>
+// import api from "../logic/api";
+import axios from "axios";
 export default {
+  head() {
+    return {
+      title: "Register"
+    };
+  },
   data() {
     return {
       terms: false,
       privacy: false,
-      fisrtName: "",
+      firstName: "",
       lastName: "",
       username: "",
       email: "",
       password: "",
-      passwordConfirm: ""
+      passwordConfirm: "",
+      error: ""
     };
+  },
+  computed: {
+    passwordMatch() {
+      return this.password === this.passwordConfirm;
+    },
+    getProgress() {
+      let progress = 0;
+
+      if (/\d/.test(this.password)) {
+        progress += 20;
+      }
+      if (/(.*[A-Z].*)/.test(this.password)) {
+        progress += 20;
+      }
+      if (/(.*[a-z].*)/.test(this.password)) {
+        progress += 20;
+      }
+      if (this.password.length >= 6) {
+        progress += 20;
+      }
+      if (/[^A-Za-z0-9]/.test(this.password)) {
+        progress += 20;
+      }
+      return progress;
+    }
+  },
+  methods: {
+    submit() {
+      if (this.passwordMatch) {
+        const user = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          email: this.email,
+          password: this.password
+        };
+        axios({
+          method: "post",
+          url: "http://localhost:5000/api/v1/users/register",
+          data: user
+        }).then(result => {
+          if (result.status === 200) {
+            if (result.data.success === true) {
+              console.log("ok");
+            } else {
+              console.log("not ok");
+            }
+          } else {
+            console.log("error in register user");
+          }
+        });
+      } else {
+        console.log("err");
+        this.error = "password not match";
+      }
+    }
   }
 };
 </script>

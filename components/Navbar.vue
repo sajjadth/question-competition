@@ -3,9 +3,7 @@
     <vs-navbar paddingScroll fixed center-collapsed id="navbar">
       <template #left>
         <h3 @click="route = '/'">
-          <nuxt-link to="/" class="link-dark"
-            >QC</nuxt-link
-          >
+          <nuxt-link to="/" class="link-dark">QC</nuxt-link>
         </h3>
       </template>
       <!-- <vs-navbar-item @click="active = '/'" to="/" :active="active === '/'">
