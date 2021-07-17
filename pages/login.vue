@@ -83,15 +83,27 @@
           >
         </div>
       </form>
-      <vs-button
-        class="mt-2 w-100"
-        to="/register"
-        transparent
-        color="rgb(84, 160, 255)"
-        block
+      <div
+        class="d-flex w-100 flex-row justify-content-center align-items-center"
       >
-        forgot password?
-      </vs-button>
+        <vs-button
+          class="mt-2 w-50"
+          transparent
+          color="rgb(84, 160, 255)"
+          block
+        >
+          forgot password?
+        </vs-button>
+        <vs-button
+          class="mt-2 w-50"
+          to="/register"
+          transparent
+          color="rgb(84, 160, 255)"
+          block
+        >
+          Don't have an account?
+        </vs-button>
+      </div>
     </div>
   </div>
 </template>
