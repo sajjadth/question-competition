@@ -63,4 +63,12 @@ const login = (req, res) => {
   });
 };
 
-module.exports = { register, login };
+const auth = (req, res) => {
+  if (req.error) {
+    res.json(req.error);
+  } else {
+    res.json({ success: true });
+  }
+};
+
+module.exports = { register, login, auth };
