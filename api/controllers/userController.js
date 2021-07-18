@@ -1,6 +1,7 @@
 const User = require("../models/userModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const axios = require("axios").default;
 
 const register = async (req, res) => {
   const salt = bcrypt.genSaltSync(15);
@@ -55,9 +56,30 @@ const login = (req, res) => {
         const token = jwt.sign(
           { username: result.username, _id: result._id },
           process.env.TOKEN_SECRET,
-          { expiresIn: "3h" }
+          { expiresIn: "6h" }
         );
-        res.json({ success: true, token: token });
+        axios({
+          method: "get",
+          url: "https://opentdb.com/api_token.php?command=request"
+        }).then(result => {
+          if (result.status === 200) {
+            if (result.data) {
+              if (result.data.response_code === 0) {
+                res.json({
+                  success: true,
+                  token: token,
+                  openToken: result.data.token
+                });
+              } else {
+                console.log("error in get third party api in get request");
+              }
+            } else {
+              console.log("error in get third party api status code");
+            }
+          } else {
+            console.log("error in get third party api");
+          }
+        });
       }
     }
   });
