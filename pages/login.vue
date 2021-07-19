@@ -137,6 +137,7 @@ export default {
           if (result.data.success) {
             if (this.isRemember) {
               localStorage.setItem("token", result.data.token);
+              localStorage.setItem("openToken", result.data.openToken);
               this.openNotification(
                 "top-right",
                 "success",
@@ -148,6 +149,7 @@ export default {
               this.$router.push("/");
             } else {
               sessionStorage.setItem("token", result.data.token);
+              sessionStorage.setItem("openToken", result.data.openToken);
               this.openNotification(
                 "top-right",
                 "success",
