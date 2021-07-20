@@ -73,4 +73,37 @@ const getQuestions = async (req, res) => {
   }
 };
 
-module.exports = { getQuestions };
+const compareAnswers = async (req, res) => {
+  let point = 0;
+  let correctAnswers = [];
+  let incorrectAnswers = [];
+  const answers = req.body;
+  for (answer of answers) {
+    if (
+      await bcrypt.compareSync(
+        answer.client_answer,
+        answer.correct_answer_hashed
+      )
+    ) {
+      const correctAnswer = {
+        question: answer.question,
+        yourAnswer: answer.client_answer
+      };
+      correctAnswers.push(correctAnswer);
+      point++;
+    } else {
+      const incorrectAnswer = {
+        question: answer.question,
+        yourAnswer: answer.client_answer
+      };
+      incorrectAnswers.push(incorrectAnswer);
+    }
+  }
+  await res.json({
+    point: point,
+    correct_answers: correctAnswers,
+    incorrect_answers: incorrectAnswers
+  });
+};
+
+module.exports = { getQuestions, compareAnswers };
