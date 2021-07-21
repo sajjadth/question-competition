@@ -132,8 +132,8 @@ export default {
         url: "http://localhost:5000/api/v1/users/login",
         data: user
       }).then(result => {
-        this.isLoading = false;
         if (result.status === 200) {
+          this.isLoading = false;
           if (result.data.success) {
             if (this.isRemember) {
               localStorage.setItem("token", result.data.token);
@@ -146,6 +146,7 @@ export default {
                 "logged in",
                 "you successfully logged in."
               );
+              this.$store.commit("loginCheck");
               this.$router.push("/");
             } else {
               sessionStorage.setItem("token", result.data.token);
@@ -158,6 +159,7 @@ export default {
                 "logged in",
                 "you successfully logged in."
               );
+              this.$store.commit("loginCheck");
               this.$router.push("/");
             }
           } else {
