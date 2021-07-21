@@ -1,6 +1,7 @@
 export const state = () => {
   return {
-    login: false
+    login: false,
+    questions: []
   };
 };
 
@@ -12,5 +13,11 @@ export const mutations = {
       ? true
       : false;
     state.login = tokenCheck;
+  },
+  logout(state) {
+    state.login = false;
+  },
+  setQuestions(state, payload) {
+    state.questions = payload;
   }
 };
