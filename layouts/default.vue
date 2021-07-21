@@ -10,8 +10,7 @@
       <Navbar />
     </div>
     <div
-      id="body"
-      class="d-flex flex-column w-100 justify-content-center align-items-center"
+      class="d-flex flex-column w-100 justify-content-center align-items-center body"
     >
       <Nuxt />
     </div>
@@ -24,12 +23,25 @@ import Navbar from "../components/Navbar.vue";
 import axios from "axios";
 export default {
   components: { Navbar },
-  computed:{
-    isLoggedIn(){
-      return this.$store.state.login
+  methods: {
+    openNotification(position = null, color, icon, time, title, text) {
+      const noti = this.$vs.notification({
+        sticky: true,
+        color,
+        icon,
+        duration: time,
+        position,
+        title: title,
+        text: text
+      });
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.login;
     },
-    loginCheck(){
-      this.$store.commit("loginCheck")
+    loginCheck() {
+      this.$store.commit("loginCheck");
     }
   },
   mounted() {
@@ -52,7 +64,7 @@ export default {
           } else {
             if (result.data.message) {
               localStorage.removeItem("token");
-              sessionStorage.removeItem("token");
+              sessionStorage.removeItem("openToken");
               this.openNotification(
                 "top-right",
                 "warn",
@@ -62,7 +74,7 @@ export default {
                 "your login is expired!"
               );
               this.$router.push("/login");
-              this.isLoggedin = false;
+              this.$store.commit("logout");
             } else {
               console.log("user is log out and i dont now why");
             }
