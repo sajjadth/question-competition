@@ -3,18 +3,27 @@ const bcrypt = require("bcrypt");
 
 const getQuestions = async (req, res) => {
   const amount = req.body.amount;
-  const category = req.body.category;
-  const difficulty = req.body.difficulty;
   const token = req.body.token;
-  const type = req.body.type;
 
-  const options = {
+  let options = {
     amount: amount,
-    category: category,
-    difficulty: difficulty,
-    type: type,
     token: token
   };
+  req.body.category
+    ? req.body.category === "any"
+      ? null
+      : req.body.category
+    : null;
+  req.body.difficulty
+    ? req.body.difficulty === "any"
+      ? null
+      : req.body.difficulty
+    : null;
+  req.body.type
+    ? req.body.type === "any"
+      ? null
+      : (options.type = req.body.type)
+    : null;
 
   const Questions = await Trivia.getQuestions(options);
   const clientResponse = [];
