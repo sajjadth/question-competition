@@ -14,9 +14,6 @@ export const mutations = {
       : false;
     state.login = tokenCheck;
   },
-  logout(state) {
-    state.login = false;
-  },
   setQuestions(state, payload) {
     state.questions = payload;
   }

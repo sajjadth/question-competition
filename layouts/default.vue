@@ -64,6 +64,8 @@ export default {
           } else {
             if (result.data.message) {
               localStorage.removeItem("token");
+              localStorage.removeItem("openToken");
+              sessionStorage.removeItem("token");
               sessionStorage.removeItem("openToken");
               this.openNotification(
                 "top-right",
@@ -74,7 +76,7 @@ export default {
                 "your login is expired!"
               );
               this.$router.push("/login");
-              this.$store.commit("logout");
+              this.$store.commit("loginCheck");
             } else {
               console.log("user is log out and i dont now why");
             }

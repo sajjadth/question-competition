@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div class="w-100 d-flex justify-content-center align-items-center">
     <h1 v-if="!isLoggedIn">home</h1>
-    <Game v-else />
+    <selectGame v-if="questions.length === 0 && isLoggedIn" />
+    <mainGame v-if="questions.length > 0" />
   </div>
 </template>
 
 <script>
-import Game from "../components/Game.vue";
+import selectGame from "../components/selectGame.vue";
+import mainGame from "../components/mainGame.vue";
 export default {
   head() {
     return {
@@ -19,11 +21,15 @@ export default {
     };
   },
   components: {
-    Game
+    selectGame,
+    mainGame
   },
   computed: {
     isLoggedIn() {
       return this.$store.state.login;
+    },
+    questions() {
+      return this.$store.state.questions;
     }
   }
 };
