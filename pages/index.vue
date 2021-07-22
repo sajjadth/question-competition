@@ -1,13 +1,16 @@
 <template>
   <div class="w-100 d-flex justify-content-center align-items-center">
     <h1 v-if="!isLoggedIn">home</h1>
-    <selectGame v-if="questions.length === 0 && isLoggedIn" />
+    <gameInput
+      v-if="questions.length === 0 && isLoggedIn && userAnswers.length === 0"
+    />
     <mainGame v-if="questions.length > 0" />
+    <h1 v-if="userAnswers.length > 0">output</h1>
   </div>
 </template>
 
 <script>
-import selectGame from "../components/selectGame.vue";
+import gameInput from "../components/gameInput.vue";
 import mainGame from "../components/mainGame.vue";
 export default {
   head() {
@@ -21,7 +24,7 @@ export default {
     };
   },
   components: {
-    selectGame,
+    gameInput,
     mainGame
   },
   computed: {
@@ -30,6 +33,9 @@ export default {
     },
     questions() {
       return this.$store.state.questions;
+    },
+    userAnswers() {
+      return this.$store.state.userAnswers;
     }
   }
 };

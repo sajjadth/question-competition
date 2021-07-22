@@ -1,7 +1,8 @@
 export const state = () => {
   return {
     login: false,
-    questions: []
+    questions: [],
+    userAnswers: []
   };
 };
 
@@ -16,5 +17,9 @@ export const mutations = {
   },
   setQuestions(state, payload) {
     state.questions = payload;
+  },
+  getUserAnswers(state, payload) {
+    state.userAnswers = payload;
+    state.questions = [];
   }
 };

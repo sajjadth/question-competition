@@ -6,6 +6,7 @@
     <div class="d-flex w-100 mt-2 justify-content-center align-items-center">
       <vs-pagination
         buttons-dotted
+        disabled
         class="w-50"
         v-model="currentQuestion"
         :length="questionsLength"
@@ -59,7 +60,12 @@
         Previous
       </vs-button>
 
-      <vs-button v-if="currentQuestion === questionsLength" success flat>
+      <vs-button
+        @click="submit"
+        v-if="currentQuestion === questionsLength"
+        success
+        flat
+      >
         submit
       </vs-button>
 
@@ -145,6 +151,9 @@ export default {
           this.picked = result.client_answer;
         }
       });
+    },
+    submit() {
+      this.$store.commit("getUserAnswers", this.results);
     }
   }
 };
