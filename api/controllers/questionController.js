@@ -12,12 +12,12 @@ const getQuestions = async (req, res) => {
   req.body.category
     ? req.body.category === "any"
       ? null
-      : req.body.category
+      : (options.category = req.body.category)
     : null;
   req.body.difficulty
     ? req.body.difficulty === "any"
       ? null
-      : req.body.difficulty
+      : (options.difficulty = req.body.difficulty)
     : null;
   req.body.type
     ? req.body.type === "any"
