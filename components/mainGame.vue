@@ -64,7 +64,6 @@
         @click="submit"
         v-if="currentQuestion === questionsLength"
         success
-        flat
       >
         submit
       </vs-button>
@@ -72,7 +71,7 @@
       <vs-button
         color="rgb(84, 160, 255)"
         @click="next"
-        :disabled="currentQuestion === questionsLength"
+        v-if="currentQuestion !== questionsLength"
         >next
         <svg
           xmlns="http://www.w3.org/2000/svg"

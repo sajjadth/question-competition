@@ -1,17 +1,16 @@
 <template>
   <div class="w-100 d-flex justify-content-center align-items-center">
     <h1 v-if="!isLoggedIn">home</h1>
-    <gameInput
-      v-if="questions.length === 0 && isLoggedIn && userAnswers.length === 0"
-    />
-    <mainGame v-if="questions.length > 0" />
-    <h1 v-if="userAnswers.length > 0">output</h1>
+    <gameInput v-if="status === 0 && isLoggedIn" />
+    <mainGame v-if="status === 1  && isLoggedIn" />
+    <gameOutput v-if="status === 2  && isLoggedIn" />
   </div>
 </template>
 
 <script>
 import gameInput from "../components/gameInput.vue";
 import mainGame from "../components/mainGame.vue";
+import gameOutput from "../components/gameOutput.vue";
 export default {
   head() {
     return {
@@ -25,7 +24,8 @@ export default {
   },
   components: {
     gameInput,
-    mainGame
+    mainGame,
+    gameOutput
   },
   computed: {
     isLoggedIn() {
@@ -36,6 +36,12 @@ export default {
     },
     userAnswers() {
       return this.$store.state.userAnswers;
+    },
+    userResults() {
+      return this.$store.state.userResults;
+    },
+    status() {
+      return this.$store.state.status;
     }
   }
 };

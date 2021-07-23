@@ -2,7 +2,9 @@ export const state = () => {
   return {
     login: false,
     questions: [],
-    userAnswers: []
+    userAnswers: [],
+    userResults: [],
+    status: 0
   };
 };
 
@@ -17,9 +19,19 @@ export const mutations = {
   },
   setQuestions(state, payload) {
     state.questions = payload;
+    state.status++;
   },
   getUserAnswers(state, payload) {
     state.userAnswers = payload;
     state.questions = [];
+    state.status++;
+  },
+  getUserResults(state, payload) {
+    state.userResults = payload;
+    state.userAnswers = [];
+  },
+  close(state) {
+    state.status = 0;
+    state.userResults = []
   }
 };

@@ -84,8 +84,7 @@ const getQuestions = async (req, res) => {
 
 const compareAnswers = async (req, res) => {
   let point = 0;
-  let correctAnswers = [];
-  let incorrectAnswers = [];
+  let results = [];
   const answers = req.body;
   for (answer of answers) {
     if (
@@ -96,22 +95,24 @@ const compareAnswers = async (req, res) => {
     ) {
       const correctAnswer = {
         question: answer.question,
-        yourAnswer: answer.client_answer
+        yourAnswer: answer.client_answer,
+        correct: true
       };
-      correctAnswers.push(correctAnswer);
+      results.push(correctAnswer);
       point++;
     } else {
       const incorrectAnswer = {
         question: answer.question,
-        yourAnswer: answer.client_answer
+        yourAnswer: answer.client_answer,
+        correct: false
       };
-      incorrectAnswers.push(incorrectAnswer);
+      results.push(incorrectAnswer);
     }
   }
   await res.json({
     point: point,
-    correct_answers: correctAnswers,
-    incorrect_answers: incorrectAnswers
+    results: results,
+    result: `${point}/${answers.length}`
   });
 };
 
