@@ -144,6 +144,7 @@ export default {
           "empty input",
           "pleas fill out all fields."
         );
+        this.isLoading = false;
       } else {
         axios({
           method: "post",

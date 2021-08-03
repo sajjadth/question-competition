@@ -147,7 +147,7 @@ export default {
                 "you successfully logged in."
               );
               this.$store.commit("loginCheck");
-              this.$router.push("/");
+              this.$router.push("/game");
             } else {
               sessionStorage.setItem("token", result.data.token);
               sessionStorage.setItem("openToken", result.data.openToken);
@@ -160,7 +160,7 @@ export default {
                 "you successfully logged in."
               );
               this.$store.commit("loginCheck");
-              this.$router.push("/");
+              this.$router.push("/game");
             }
           } else {
             this.openNotification(
