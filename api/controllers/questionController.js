@@ -1,5 +1,6 @@
 const Trivia = require("open-trivia-db");
 const bcrypt = require("bcrypt");
+const User = require("../models/userModel");
 
 const getQuestions = async (req, res) => {
   const amount = req.body.amount;
@@ -109,11 +110,18 @@ const compareAnswers = async (req, res) => {
       results.push(incorrectAnswer);
     }
   }
-  await res.json({
-    point: point,
-    results: results,
-    result: `${point}/${answers.length}`
-  });
+  await User.findOneAndUpdate(
+    { username: req.user.username, _id: req.user._id },
+    { $inc: { point: point } }
+  )
+    .then(async r => {
+      await res.json({
+        point: point,
+        results: results,
+        result: `${point}/${answers.length}`
+      });
+    })
+    .catch(e => console.log("Error in updating data"));
 };
 
 module.exports = { getQuestions, compareAnswers };

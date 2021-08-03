@@ -8,7 +8,8 @@ const userSchema = new Schema(
     fullName: { type: String },
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    point: {type: Number, default: 0}
   },
   { timeStamps: true, collection: "users" }
 );
