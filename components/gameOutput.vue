@@ -1,9 +1,17 @@
 <template>
-  <div class="w-75 d-flex flex-column justify-content-center alignitems-center">
-    <p>
-      yout answerd {{ results.result }} and your point is {{ results.point }}
-    </p>
-    <vs-button color="danger" @click="$store.commit('close')">close</vs-button>
+  <div class="d-flex flex-column justify-content-center alignitems-center">
+    <div
+      v-if="isDone"
+      id="done"
+      class="p-2 w-100 d-flex flex-column justify-content-center align-items-center"
+    >
+      <p>
+        yout answerd {{ results.result }} and your point is {{ results.point }}
+      </p>
+      <vs-button color="danger" block @click="$store.commit('close')"
+        >close</vs-button
+      >
+    </div>
     <!-- <vs-button flat v-if="!active" @click="active = !active"
       >see details</vs-button
     >
@@ -54,6 +62,11 @@
 <script>
 import axios from "axios";
 export default {
+  data() {
+    return {
+      isDone: false
+    };
+  },
   computed: {
     answers() {
       return this.$store.state.userAnswers;
@@ -63,6 +76,7 @@ export default {
     }
   },
   mounted() {
+    this.isDone = false;
     const loading = this.$vs.loading({
       // background: "dark",
       // color:"#fff",
@@ -83,12 +97,14 @@ export default {
     }).then(result => {
       if (result.status === 200) {
         this.$store.commit("getUserResults", result.data);
+        this.isDone = true;
         loading.close();
       } else {
+        this.isDone = true;
         console.log("error in fetch compare");
       }
     });
-  },
+  }
 };
 </script>
 
