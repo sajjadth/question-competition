@@ -68,18 +68,18 @@
 export default {
   data() {
     return {
-      route: this.$route.path,
+      route: this.$route.path
     };
   },
   watch: {
     $route(to, from) {
       this.route = to.path;
-      this.loginCheck
+      this.loginCheck;
     }
   },
-  computed:{
+  computed: {
     isLoggedIn() {
-      return this.$store.state.login
+      return this.$store.state.login;
     }
   },
   methods: {

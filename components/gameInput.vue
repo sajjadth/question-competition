@@ -1,7 +1,9 @@
 <template>
   <div
-    class="d-flex flex-column w-100 justify-content-center align-items-center"
+    v-if="categorys.length > 0"
+    class="d-flex flex-column px-sm-3 p-2 py-3 bg-white justify-content-center align-items-center"
   >
+    <h4>select</h4>
     <form
       @submit.prevent="submit"
       v-if="categorys.length > 0"

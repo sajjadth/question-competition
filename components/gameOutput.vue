@@ -1,7 +1,6 @@
 <template>
-  <div class="d-flex flex-column justify-content-center alignitems-center">
+  <div class="d-flex flex-column justify-content-center alignitems-center bg-white p-3"  v-if="isDone">
     <div
-      v-if="isDone"
       id="done"
       class="p-2 w-100 d-flex flex-column justify-content-center align-items-center"
     >

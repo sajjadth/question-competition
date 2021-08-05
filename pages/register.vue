@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="mx-2 p-2 bg-white mb-5">
     <h3 class="text-center">register</h3>
     <form @submit.prevent="submit" autocomplete="off">
       <div
-        class="d-flex flex-row justify-content-center align-items-center w-100 m-auto"
+        class="d-flex flex-sm-row flex-column justify-content-center align-items-center m-auto"
       >
         <vs-input
           label-placeholder="first name"
@@ -44,7 +44,7 @@
         ></vs-input>
       </div>
       <div
-        class="d-flex flex-row justify-content-center align-items-center w-100"
+        class="d-flex flex-sm-row flex-column justify-content-center align-items-center w-100"
       >
         <vs-input
           label-placeholder="password"

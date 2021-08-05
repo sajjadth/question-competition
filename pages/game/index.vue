@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 d-flex justify-content-center align-items-center">
+  <div class="body w-100 d-flex justify-content-center align-items-center">
     <h1 v-if="!isLoggedIn">go <nuxt-link class="link-dark" to="/">home</nuxt-link></h1>
     <gameInput v-if="status === 0 && isLoggedIn" />
     <mainGame v-if="status === 1 && isLoggedIn" />

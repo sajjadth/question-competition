@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column w-100 justify-content-center align-items-center"
+    class="d-flex flex-column p-3 m-2 justify-content-center align-items-center bg-white"
   >
     <div
       id="min-width"
