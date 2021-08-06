@@ -1,6 +1,6 @@
 <template>
   <div class="mx-2 p-2 bg-white mb-5">
-    <h3 class="text-center">register</h3>
+    <h3 class="text-center playfair">register</h3>
     <form @submit.prevent="submit" autocomplete="off">
       <div
         class="d-flex flex-sm-row flex-column justify-content-center align-items-center m-auto"
@@ -98,7 +98,7 @@
           block
           ref="button"
           :loading="isLoading"
-          >submit</vs-button
+          >register</vs-button
         >
       </div>
     </form>

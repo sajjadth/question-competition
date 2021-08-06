@@ -6,7 +6,7 @@
       id="min-width"
       class="d-flex flex-column justify-content-center align-items-center"
     >
-      <h3>login</h3>
+      <h3 class="playfair">login</h3>
       <form class="w-100" @submit.prevent="submit" autocomplete="off">
         <div class="d-flex w-100 justify-content-center align-items-center">
           <vs-input
@@ -111,6 +111,11 @@
 <script>
 import axios from "axios";
 export default {
+  head() {
+    return {
+      title: "Login"
+    };
+  },
   data() {
     return {
       username: "",

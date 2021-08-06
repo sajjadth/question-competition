@@ -43,7 +43,15 @@
         >
       </template>
       <template #right v-else>
-        <nuxt-link to="/profile">
+        <vs-button
+          v-if="isLoggedIn && route === '/'"
+          dark
+          transparent
+          :active="route === '/register'"
+          to="/register"
+          >lets play</vs-button
+        >
+        <nuxt-link to="/profile" v-else>
           <vs-avatar>
             <svg
               xmlns="http://www.w3.org/2000/svg"

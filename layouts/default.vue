@@ -3,6 +3,7 @@
     id="main"
     class="d-flex flex-column w-100 justify-content-center align-items-center"
   >
+  <div id="bgh"></div>
     <div
       id="header"
       class="d-flex w-100 justify-content-center align-items-center"
@@ -10,7 +11,7 @@
       <Navbar />
     </div>
     <div
-      class="d-flex flex-column w-100 justify-content-center align-items-center body"
+      class="d-flex flex-column w-100 justify-content-center align-items-center background body"
     >
       <Nuxt />
     </div>
