@@ -93,4 +93,18 @@ const auth = (req, res) => {
   }
 };
 
-module.exports = { register, login, auth };
+const getData = (req, res) => {
+  const user = User.findOne({ _id: req.user._id, username: req.user.username });
+
+  if (!user) res.json({ success: false, message: "cant find user!" });
+
+  user.then(result =>
+    res.json({
+      point: result.point,
+      email: result.email,
+      username: result.username,
+      fullName: result.fullName
+    })
+  );
+};
+module.exports = { register, login, auth, getData };
