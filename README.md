@@ -8,7 +8,7 @@ npm run api
 npm start
 
 <h2>output</h2>
-npm run build
+npm run build<br/>
 
-create .env file in ./api
+create .env file in ./api<br/>
 and add DB ,PORT, TOKEN_SECRET value to it 
