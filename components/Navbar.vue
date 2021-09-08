@@ -2,7 +2,7 @@
   <div>
     <vs-navbar paddingScroll fixed center-collapsed id="navbar">
       <template #left>
-        <h3>
+        <h3 class="m-0">
           <nuxt-link to="/" class="link-dark">QC</nuxt-link>
         </h3>
       </template>
@@ -47,8 +47,8 @@
           v-if="isLoggedIn && route === '/'"
           dark
           transparent
-          :active="route === '/register'"
-          to="/register"
+          :active="route === '/game'"
+          to="/game"
           >lets play</vs-button
         >
         <nuxt-link to="/profile" v-else>
