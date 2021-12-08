@@ -1,6 +1,8 @@
 # questio-competition
 simple question competition app made with nuxt-js, node-js, mongodb  
 
+PS: NOT COMPLETED
+
 ### work on backend
 ```
 npm run api
