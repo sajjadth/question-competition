@@ -1,14 +1,19 @@
 # questio-competition
 simple question competition app made with nuxt-js, node-js, mongodb  
 
-<h2>work on backend</h2>
+### work on backend
+```
 npm run api
-
-<h2>start</h2>
+```
+### start 
+```
 npm start
-
-<h2>output</h2>
-npm run build<br/>
-<br/>
-create .env file in ./api<br/>
+```
+### output
+```
+npm run build
+```
+create **.env** file in ./api<br/>
 and add DB ,PORT, TOKEN_SECRET value to it 
+
+> My Seventh Project After Learning About Nuxt.js, Vue, Node.js
